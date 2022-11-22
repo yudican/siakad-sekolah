@@ -20,6 +20,20 @@ class DataUjianTable extends LivewireDatatable
 
     public function builder()
     {
+        $role = auth()->user()->role;
+        if ($role->role_type == 'guru') {
+            return DataUjian::query()->where('data_ujian.guru_id', auth()->user()->guru->id);
+        }
+
+        if ($role->role_type == 'siswa') {
+            return DataUjian::query()->whereHas('kelas', function ($query) {
+                $query->whereHas('siswa', function ($query) {
+                    $query->where('siswa_id', auth()->user()->siswa->id);
+                });
+            });
+        }
+
+
         return DataUjian::query();
     }
 

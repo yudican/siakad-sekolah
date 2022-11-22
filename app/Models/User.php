@@ -11,6 +11,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 class User extends Authenticatable
 {
@@ -110,5 +111,15 @@ class User extends Authenticatable
     public function siswa()
     {
         return $this->hasOne(DataSiswa::class);
+    }
+
+    /**
+     * Get the guru associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function guru()
+    {
+        return $this->hasOne(DataGuru::class);
     }
 }
