@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>SMANDU Malteng</title>
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-    <link rel="icon" href="{{asset('assets/img/icon.ico')}}" type="image/x-icon" />
+    <link rel="icon" href="https://i.ibb.co/bW5ct9p/Whats-App-Image-2022-11-08-at-09-06-47.jpg" type="image/x-icon" />
 
     <!-- Fonts and icons -->
     <script src="{{asset('assets/js/plugin/webfont/webfont.min.js')}}"></script>
@@ -49,8 +49,9 @@
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="blue">
 
-                <a href="{{route('dashboard')}}" class="logo">
-                    <span class="text-white">S I A K A D</span>
+                <a href="{{route('dashboard')}}" class="logo d-flex justify-content-between align-items-center">
+                    <img src="https://i.ibb.co/bW5ct9p/Whats-App-Image-2022-11-08-at-09-06-47.jpg" alt="" style="width:30px;">
+                    <span class="text-white ml-2">S I A K A D</span>
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon">
@@ -168,7 +169,7 @@
                 <div class="container-fluid">
 
                     <div class="copyright ml-auto">
-                        {{date('Y')}}, made with <i class="fa fa-heart heart text-danger"></i> by <a href="http://www.themekita.com">ThemeKita</a>
+                        Afifa Ramadanty, Operator Smandu Malteng
                     </div>
                 </div>
             </footer>
