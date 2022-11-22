@@ -194,6 +194,7 @@
     @stack('scripts')
     <script>
         document.addEventListener('livewire:load', function(e) {
+            
                     window.livewire.on('showAlert', (data) => {
                         Swal.fire({
                             icon: 'success',

@@ -98,7 +98,19 @@
     @push('scripts')
     <script src="{{asset('assets/js/plugin/summernote/summernote-bs4.min.js')}}"></script>
 
+    @if (auth()->user()->role->role_type == 'siswa')
+    <script>
+        document.addEventListener('livewire:load', function(e) {
+                window.addEventListener('focus', function (event) {
+                    console.log('has focus');
+                });
 
+                window.addEventListener('blur', function (event) {
+                    @this.call('finishUjian');
+                });
+            })
+    </script>
+    @endif
     <script>
         document.addEventListener('livewire:load', function(e) {
             var WaktuHitung = '{{$countdown}}' || 0; 
