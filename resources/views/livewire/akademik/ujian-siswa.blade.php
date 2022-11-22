@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <h4 class="card-title text-capitalize">
                         <a href="{{route('dashboard')}}">
-                            <span><i class="fas fa-arrow-left mr-3"></i>tbl pengumpulan tugas</span>
+                            <span><i class="fas fa-arrow-left mr-3"></i>Ujian Siswa</span>
                         </a>
                         <div class="pull-right">
                             @if (auth()->user()->role->role_type == 'siswa')
@@ -34,6 +34,8 @@
                     <x-textarea name="jawaban.{{$soal_id}}" label="Input Jawaban" />
                     <button class="btn btn-primary btn-sm" wire:click="saveJawaban">Simpan Jawaban</button>
                     @else
+                    <p>Jawaban: </p>
+                    <p>{{getJawaban($soal_id)}}</p>
                     <x-text-field name="nilai.{{$soal_id}}" label="Input Nilai" />
                     <button class="btn btn-primary btn-sm" wire:click="saveNilai">Simpan Nilai</button>
                     @endif

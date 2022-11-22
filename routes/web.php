@@ -26,6 +26,8 @@ use App\Http\Livewire\Akademik\DataJadwalPelajaranController;
 use App\Http\Livewire\Akademik\DataUjianController;
 use App\Http\Livewire\Akademik\DataSoalUjianController;
 use App\Http\Livewire\Akademik\UjianSiswaController;
+use App\Http\Livewire\JawabanUjianSiswaController;
+use App\Http\Livewire\ListUjianSiswaController;
 
 // [route_import_path]
 
@@ -78,6 +80,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified', 'user.authorization']
     Route::get('/data-ujian', DataUjianController::class)->name('data-ujian');
     Route::get('/data-soal-ujian/{data_ujian_id}', DataSoalUjianController::class)->name('data-soal-ujian');
     Route::get('/ujian-siswa/{ujian_id}', UjianSiswaController::class)->name('ujian-siswa');
+    Route::get('/list-ujian-siswa/{ujian_id}', ListUjianSiswaController::class)->name('list-ujian-siswa');
+    Route::get('/list-jawaban-ujian-siswa/{ujian_id}/{siswa_id}', JawabanUjianSiswaController::class)->name('list-jawaban-ujian-siswa');
     // [route_path]
 
 });

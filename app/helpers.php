@@ -80,3 +80,16 @@ if (!function_exists('convertTime')) {
     return $min . ':' . str_pad(($iSeconds % 60), 2, '0', STR_PAD_LEFT);
   }
 }
+
+
+// get day name
+if (!function_exists('getJawaban')) {
+  function getJawaban($soal_id)
+  {
+    $jawaban = DataJawabanUjian::where('data_soal_ujian_id', $soal_id)->first();
+    if ($jawaban) {
+      return $jawaban->jawaban;
+    }
+    return '';
+  }
+}
