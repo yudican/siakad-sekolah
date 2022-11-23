@@ -17,21 +17,22 @@ class UserAuthorization
      */
     public function handle(Request $request, Closure $next)
     {
-        $route_name = $request->route()->getName();
-        $user = auth()->user();
-        $menus = $user->menus;
-        foreach ($menus as $menu) {
-            if ($menu->menu_route == $route_name) {
-                return $next($request);
-            }
-            foreach ($menu->children as $children) {
-                foreach ($menu->children()->whereIn('id', $user->menu_id)->get() as $children) {
-                    if ($children->menu_route == $route_name) {
-                        return $next($request);
-                    }
-                }
-            }
-        }
-        return abort(403);
+        // $route_name = $request->route()->getName();
+        // $user = auth()->user();
+        // $menus = $user->menus;
+        // foreach ($menus as $menu) {
+        //     if ($menu->menu_route == $route_name) {
+        //         return $next($request);
+        //     }
+        //     foreach ($menu->children as $children) {
+        //         foreach ($menu->children()->whereIn('id', $user->menu_id)->get() as $children) {
+        //             if ($children->menu_route == $route_name) {
+        //                 return $next($request);
+        //             }
+        //         }
+        //     }
+        // }
+        // return abort(403);
+        return $next($request);
     }
 }
