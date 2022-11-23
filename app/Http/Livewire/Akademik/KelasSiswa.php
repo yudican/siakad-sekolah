@@ -7,13 +7,15 @@ use Livewire\Component;
 
 class KelasSiswa extends Component
 {
-    public $kelas_id = null;
+    public $kelas_id;
     public $route_name = null;
 
     public $form_active = false;
     public $form = true;
     public $update_mode = false;
     public $modal = false;
+
+    protected $listeners = ['getDataDataKelasById'];
 
     public function render()
     {
@@ -34,6 +36,13 @@ class KelasSiswa extends Component
         $this->emit('loadForm');
     }
 
+    public function getDataDataKelasById(String $kelas_id)
+    {
+        $this->kelas_id =  $kelas_id;
+        $this->emit('setKelasId', $kelas_id);
+        $this->emit('setSelected', $kelas_id);
+        $this->form_active = true;
+    }
 
     public function handleChangeKelas($type, $value)
     {

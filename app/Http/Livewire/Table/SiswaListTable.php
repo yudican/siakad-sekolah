@@ -9,11 +9,16 @@ use Yudican\LaravelCrudGenerator\Livewire\Table\LivewireDatatable;
 
 class SiswaListTable extends LivewireDatatable
 {
-    protected $listeners = ['refreshTable', 'storeSiswa', 'setSelected'];
+    protected $listeners = ['refreshTable', 'storeSiswa', 'setSelected', 'setKelasId'];
     public $table_name = 'tbl_data_siswas';
-
+    public $kelas_id = null;
     public function builder()
     {
+        if ($this->kelas_id) {
+            return DataSiswa::query()->whereHas('kelas', function ($query) {
+                $query->where('data_kelas.id', $this->kelas_id);
+            });
+        }
         return DataSiswa::query()->whereDoesntHave('kelas');
     }
 
@@ -47,8 +52,12 @@ class SiswaListTable extends LivewireDatatable
                 $data[] = (string) $value;
             }
             $this->selected = $data;
-            $this->forgetComputed();
         }
+    }
+
+    public function setKelasId($kelas_id)
+    {
+        $this->kelas_id = $kelas_id;
     }
 
     public function refreshTable()

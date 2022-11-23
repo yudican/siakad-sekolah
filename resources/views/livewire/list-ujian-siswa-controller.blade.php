@@ -7,6 +7,9 @@
                         <a href="{{route('dashboard')}}">
                             <span><i class="fas fa-arrow-left mr-3"></i>Daftar Peserta Ujian</span>
                         </a>
+                        <div class="pull-right">
+                            <button class="btn btn-success btn-sm" wire:click="exportNilai"><i class="fas fa-excel"></i> Export Nilai</button>
+                        </div>
                     </h4>
                 </div>
             </div>

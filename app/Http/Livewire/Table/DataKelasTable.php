@@ -16,6 +16,15 @@ class DataKelasTable extends LivewireDatatable
 
     public function builder()
     {
+        $user = auth()->user();
+        $role = $user->role->role_type;
+
+        if (in_array($role, ['guru'])) {
+            return DataKelas::query()->whereHas('waliKelas', function ($query) use ($user) {
+                return $query->where('data_guru.id', $user->guru->id);
+            })->orderBy('created_at', 'desc');
+        }
+
         return DataKelas::query();
     }
 
