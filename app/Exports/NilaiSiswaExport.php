@@ -43,7 +43,7 @@ class NilaiSiswaExport implements FromQuery, WithHeadings, WithMapping, ShouldAu
         $ujian = DataUjian::find($this->ujian_id);
         $nilai = 0;
         if ($ujian_siswa) {
-            if ($ujian->jenis_ujian == 'pg') {
+            if ($ujian->jenis_soal == 'pg') {
                 // hitung nilai
                 $benar = 0;
                 $salah = 0;

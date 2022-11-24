@@ -13,7 +13,7 @@ class DataJadwalPelajaran extends Model
     protected $table = 'data_jadwal_pelajaran';
     //public $incrementing = false;
 
-    protected $fillable = ['akademik_id', 'kelas_id', 'mapel_id', 'guru_id', 'hari', 'jam_mulai', 'jam_selesai'];
+    protected $fillable = ['akademik_id', 'kelas_id', 'mapel_id', 'guru_id', 'jurusan_id', 'hari', 'jam_mulai', 'jam_selesai'];
 
     protected $dates = [];
 
@@ -35,5 +35,10 @@ class DataJadwalPelajaran extends Model
     public function guru()
     {
         return $this->belongsTo(DataGuru::class, 'guru_id');
+    }
+
+    public function jurusan()
+    {
+        return $this->belongsTo(DataJurusan::class, 'jurusan_id');
     }
 }

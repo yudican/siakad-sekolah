@@ -29,6 +29,7 @@ class DataJadwalPelajaranTable extends LivewireDatatable
             Column::name('kelas.nama_kelas')->label('Kelas')->searchable(),
             Column::name('mapel.nama_mapel')->label('Mata Pelajaran')->searchable(),
             Column::name('guru.nama_guru')->label('Guru Pengampu')->searchable(),
+            Column::name('jurusan.nama_jurusan')->label('Nama Jurusan')->searchable(),
             Column::callback('hari', function ($hari) {
                 return namaHari($hari);
             })->label('Hari')->searchable(),

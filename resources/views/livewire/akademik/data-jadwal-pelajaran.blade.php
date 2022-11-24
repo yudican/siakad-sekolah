@@ -49,6 +49,12 @@
                         <option value="{{$guru->id}}">{{$guru->nama_guru}}</option>
                         @endforeach
                     </x-select>
+                    <x-select name="jurusan_id" label="Jurusan">
+                        <option value="">Select Jurusan</option>
+                        @foreach ($jurusans as $jurusan)
+                        <option value="{{$jurusan->id}}">{{$jurusan->nama_jurusan}}</option>
+                        @endforeach
+                    </x-select>
                     <x-select name="hari" label="Hari">
                         <option value="">Select Hari</option>
                         <option value="1">Senin</option>

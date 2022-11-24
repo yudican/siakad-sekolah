@@ -54,7 +54,7 @@ class DataUjianTable extends LivewireDatatable
                 return DataSoalUjian::where('data_ujian_id', $id)->count() . ' Soal';
             })->label('Jumlah Soal')->searchable(),
 
-            Column::callback(['id', 'jenis_ujian'], function ($id, $jenis_ujian) {
+            Column::callback(['id', 'jenis_soal', 'tanggal_ujian', 'waktu_ujian'], function ($id, $jenis_soal, $tanggal_ujian, $waktu_ujian) {
                 $user = auth()->user();
                 $role = $user->role->role_type;
 
@@ -64,28 +64,27 @@ class DataUjianTable extends LivewireDatatable
                         'siswa_id' => auth()->user()->siswa->id,
                     ])->first();
                     if ($ujian) {
-                        if ($jenis_ujian == 'pg') {
-                            // hitung nilai
-                            $benar = 0;
-                            $salah = 0;
-                            $jawabans = DataJawabanUjian::where('data_ujian_id', $id)->where('siswa_id', auth()->user()->siswa->id)->get();
-
-                            foreach ($jawabans as $jawaban) {
-                                if ($jawaban->status) {
-                                    $benar++;
-                                } else {
-                                    $salah++;
-                                }
-                            }
-
-                            return $benar . ' Benar, ' . $salah . ' Salah';
+                        if ($jenis_soal == 'pg') {
+                            return  DataJawabanUjian::where('data_ujian_id', $id)->where('siswa_id', auth()->user()->siswa->id)->where('status', 1)->count();
                         }
 
                         $jawabans = DataJawabaEssay::where('data_ujian_id', $id)->where('data_siswa_id', auth()->user()->siswa->id)->sum('nilai');
 
                         return "Nilai $jawabans";
                     }
-                    return '<a href="' . route('ujian-siswa', ['ujian_id' => $id]) . '" class="btn btn-primary btn-sm">Mulai Ujian</a>';
+
+                    $start = strtotime($tanggal_ujian . ' ' . $waktu_ujian);
+                    $now = strtotime(date('Y-m-d H:i:s'));
+
+                    if ($start >= $now) {
+                        return 'Belum Mulai';
+                    }
+                    $soal = DataSoalUjian::where('data_ujian_id', $id)->count();
+                    if ($soal > 0) {
+                        return '<a href="' . route('ujian-siswa', ['ujian_id' => $id]) . '" class="btn btn-primary btn-sm">Mulai Ujian</a>';
+                    }
+
+                    return 'Belum Ada Soal';
                 }
                 return view('crud-generator-components::action-button', [
                     'id' => $id,

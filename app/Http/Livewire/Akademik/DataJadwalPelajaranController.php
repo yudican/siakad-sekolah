@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Akademik;
 use App\Models\DataAkademik;
 use App\Models\DataGuru;
 use App\Models\DataJadwalPelajaran;
+use App\Models\DataJurusan;
 use App\Models\DataKelas;
 use App\Models\DataMapel;
 use Livewire\Component;
@@ -18,6 +19,7 @@ class DataJadwalPelajaranController extends Component
     public $kelas_id;
     public $mapel_id;
     public $guru_id;
+    public $jurusan_id;
     public $hari;
     public $jam_mulai;
     public $jam_selesai;
@@ -45,6 +47,7 @@ class DataJadwalPelajaranController extends Component
             'kelass' => DataKelas::all(),
             'mapels' => DataMapel::all(),
             'gurus' => DataGuru::all(),
+            'jurusans' => DataJurusan::all(),
         ])->layout(config('crud-generator.layout'));
     }
 
@@ -57,6 +60,7 @@ class DataJadwalPelajaranController extends Component
             'kelas_id'  => $this->kelas_id,
             'mapel_id'  => $this->mapel_id,
             'guru_id'  => $this->guru_id,
+            'jurusan_id'  => $this->jurusan_id,
             'hari'  => $this->hari,
             'jam_mulai'  => $this->jam_mulai,
             'jam_selesai'  => $this->jam_selesai
@@ -77,6 +81,7 @@ class DataJadwalPelajaranController extends Component
             'kelas_id'  => $this->kelas_id,
             'mapel_id'  => $this->mapel_id,
             'guru_id'  => $this->guru_id,
+            'jurusan_id'  => $this->jurusan_id,
             'hari'  => $this->hari,
             'jam_mulai'  => $this->jam_mulai,
             'jam_selesai'  => $this->jam_selesai
@@ -106,6 +111,7 @@ class DataJadwalPelajaranController extends Component
             'kelas_id'  => 'required',
             'mapel_id'  => 'required',
             'guru_id'  => 'required',
+            'jurusan_id'  => 'required',
             'hari'  => 'required',
             'jam_mulai'  => 'required',
             'jam_selesai'  => 'required'
@@ -123,6 +129,7 @@ class DataJadwalPelajaranController extends Component
         $this->kelas_id = $row->kelas_id;
         $this->mapel_id = $row->mapel_id;
         $this->guru_id = $row->guru_id;
+        $this->jurusan_id = $row->jurusan_id;
         $this->hari = $row->hari;
         $this->jam_mulai = $row->jam_mulai;
         $this->jam_selesai = $row->jam_selesai;
@@ -164,6 +171,7 @@ class DataJadwalPelajaranController extends Component
         $this->kelas_id = null;
         $this->mapel_id = null;
         $this->guru_id = null;
+        $this->jurusan_id = null;
         $this->hari = null;
         $this->jam_mulai = null;
         $this->jam_selesai = null;

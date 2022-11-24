@@ -29,6 +29,7 @@ use App\Http\Livewire\Akademik\UjianSiswaController;
 use App\Http\Livewire\JawabanUjianSiswaController;
 use App\Http\Livewire\ListUjianSiswaController;
 
+use App\Http\Livewire\Master\DataJurusanController;
 // [route_import_path]
 
 /*
@@ -82,6 +83,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified', 'user.authorization']
     Route::get('/ujian-siswa/{ujian_id}', UjianSiswaController::class)->name('ujian-siswa');
     Route::get('/list-ujian-siswa/{ujian_id}', ListUjianSiswaController::class)->name('list-ujian-siswa');
     Route::get('/list-jawaban-ujian-siswa/{ujian_id}/{siswa_id}', JawabanUjianSiswaController::class)->name('list-jawaban-ujian-siswa');
-    // [route_path]
+    Route::get('/data-jurusan', DataJurusanController::class)->name('data-jurusan');
+// [route_path]
 
 });
