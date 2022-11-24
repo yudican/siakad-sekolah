@@ -118,6 +118,10 @@
             window.livewire.on('closeModal', (data) => {
                 $('#confirm-modal').modal('hide')
             });
+
+            window.livewire.on('showModalConfirm', (data) => {
+                $('#confirm-modal').modal(data)
+            });
         })
     </script>
     @endpush

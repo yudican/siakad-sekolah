@@ -36,7 +36,7 @@ class DataSoalUjianTable extends LivewireDatatable
                         ],
                         [
                             'type' => 'button',
-                            'route' => 'confirmDelete(' . $id . ')',
+                            'route' => 'getId(' . $id . ')',
                             'label' => 'Hapus',
                         ]
                     ]
@@ -53,6 +53,7 @@ class DataSoalUjianTable extends LivewireDatatable
     public function getId($id)
     {
         $this->emit('getDataSoalUjianId', $id);
+        $this->emit('showModalConfirm', 'show');
     }
 
     public function refreshTable()
