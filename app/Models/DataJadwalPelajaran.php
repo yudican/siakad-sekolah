@@ -27,6 +27,11 @@ class DataJadwalPelajaran extends Model
         return $this->belongsTo(DataKelas::class, 'kelas_id');
     }
 
+    public function kelass()
+    {
+        return $this->belongsToMany(DataKelas::class, 'jadwal_kelas', 'jadwal_id', 'kelas_id');
+    }
+
     public function mapel()
     {
         return $this->belongsTo(DataMapel::class, 'mapel_id');

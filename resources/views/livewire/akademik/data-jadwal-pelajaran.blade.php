@@ -31,7 +31,7 @@
                         <option value="{{$akademik->id}}">{{$akademik->nama_akademik}}</option>
                         @endforeach
                     </x-select>
-                    <x-select name="kelas_id" label="Kelas">
+                    <x-select name="kelas_id" label="Kelas" multiple ignore>
                         <option value="">Select Kelas</option>
                         @foreach ($kelass as $kelas)
                         <option value="{{$kelas->id}}">{{$kelas->nama_kelas}}</option>
@@ -97,14 +97,19 @@
         </div>
     </div>
     @push('scripts')
-
+    <script src="{{ asset('assets/js/plugin/select2/select2.full.min.js') }}"></script>
 
 
     <script>
         document.addEventListener('livewire:load', function(e) {
             window.livewire.on('loadForm', (data) => {
-                
-                
+                $('#kelas_id').select2({
+                    theme: "bootstrap",
+                });
+                $('#kelas_id').on('change', function (e) {
+                    let data = $(this).val();
+                    @this.set('kelas_id', data);
+                });
             });
 
             window.livewire.on('closeModal', (data) => {

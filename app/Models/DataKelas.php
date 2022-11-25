@@ -32,6 +32,16 @@ class DataKelas extends Model
         return $this->belongsToMany(DataSiswa::class, 'kelas_siswa', 'kelas_id', 'siswa_id');
     }
 
+    public function ujians()
+    {
+        return $this->belongsToMany(DataUjian::class, 'kelas_ujian', 'kelas_id', 'ujian_id');
+    }
+
+    public function jadwals()
+    {
+        return $this->belongsToMany(DataJadwalPelajaran::class, 'jadwal_kelas', 'kelas_id', 'jadwal_id');
+    }
+
     public function ujian()
     {
         return $this->hasMany(DataUjian::class, 'kelas_id');

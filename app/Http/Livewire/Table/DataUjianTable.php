@@ -5,10 +5,8 @@ namespace App\Http\Livewire\Table;
 use App\Models\DataJawabaEssay;
 use App\Models\DataJawabanUjian;
 use App\Models\DataSoalUjian;
-use App\Models\HideableColumn;
 use App\Models\DataUjian;
 use Illuminate\Support\Facades\DB;
-use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Yudican\LaravelCrudGenerator\Livewire\Table\LivewireDatatable;
 
@@ -20,19 +18,18 @@ class DataUjianTable extends LivewireDatatable
 
     public function builder()
     {
-        $role = auth()->user()->role;
-        if ($role->role_type == 'guru') {
-            return DataUjian::query()->where('data_ujian.guru_id', auth()->user()->guru->id);
+        $user = auth()->user();
+        $role = $user->role->role_type;
+
+        if (in_array($role, ['guru'])) {
+            return DataUjian::query()->where('guru_id', $user->guru->id);
         }
 
-        if ($role->role_type == 'siswa') {
-            return DataUjian::query()->whereHas('kelas', function ($query) {
-                $query->whereHas('siswa', function ($query) {
-                    $query->where('siswa_id', auth()->user()->siswa->id);
-                });
+        if (in_array($role, ['siswa'])) {
+            return DataUjian::query()->whereHas('kelass', function ($query) use ($user) {
+                $query->where('kelas_id', $user->kelas_id);
             });
         }
-
 
         return DataUjian::query();
     }
@@ -42,7 +39,16 @@ class DataUjianTable extends LivewireDatatable
         return [
             Column::name('id')->label('No.'),
             Column::name('akademik.nama_akademik')->label('Akademik')->searchable(),
-            Column::name('kelas.nama_kelas')->label('Kelas')->searchable(),
+            Column::callback(['id', 'kelas_id'], function ($id, $kelas) {
+                $user = auth()->user();
+                $role = $user->role->role_type;
+                $jadwal = DataUjian::find($id);
+                if (in_array($role, ['siswa'])) {
+                    return $user->siswa->kelas()->first()->nama_kelas;
+                }
+                $kelas_nama = $jadwal->kelass()->pluck('nama_kelas')->implode(',');
+                return $kelas_nama;
+            })->label('Kelas')->searchable(),
             Column::name('mapel.nama_mapel')->label('Mapel')->searchable(),
             Column::name('guru.nama_guru')->label('Guru')->searchable(),
             Column::name('tanggal_ujian')->label('Tanggal Ujian')->searchable(),
@@ -65,7 +71,7 @@ class DataUjianTable extends LivewireDatatable
                     ])->first();
                     if ($ujian) {
                         if ($jenis_soal == 'pg') {
-                            return  DataJawabanUjian::where('data_ujian_id', $id)->where('siswa_id', auth()->user()->siswa->id)->where('status', 1)->count();
+                            return 'Nilai ' .  DataJawabanUjian::where('data_ujian_id', $id)->where('siswa_id', auth()->user()->siswa->id)->where('status', 1)->count();
                         }
 
                         $jawabans = DataJawabaEssay::where('data_ujian_id', $id)->where('data_siswa_id', auth()->user()->siswa->id)->sum('nilai');

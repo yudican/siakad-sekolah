@@ -68,6 +68,7 @@ class User extends Authenticatable
         'menus',
         'menu_data',
         'menu_id',
+        'kelas_id'
     ];
 
     /**
@@ -121,5 +122,10 @@ class User extends Authenticatable
     public function guru()
     {
         return $this->hasOne(DataGuru::class);
+    }
+
+    public function getKelasIdAttribute()
+    {
+        return $this->siswa->kelas()->first()->id;
     }
 }

@@ -57,7 +57,7 @@ class DataUjianController extends Component
 
         $data = [
             'akademik_id'  => $this->akademik_id,
-            'kelas_id'  => $this->kelas_id,
+            'kelas_id'  => is_array($this->kelas_id) ? $this->kelas_id[0] : 1,
             'mapel_id'  => $this->mapel_id,
             'guru_id'  => $this->guru_id,
             'tanggal_ujian'  => $this->tanggal_ujian . ' ' . $this->waktu_ujian,
@@ -68,8 +68,8 @@ class DataUjianController extends Component
             'keterangan'  => $this->keterangan
         ];
 
-        DataUjian::create($data);
-
+        $ujian = DataUjian::create($data);
+        $ujian->kelass()->attach($this->kelas_id);
         $this->_reset();
         return $this->emit('showAlert', ['msg' => 'Data Berhasil Disimpan']);
     }
@@ -80,7 +80,7 @@ class DataUjianController extends Component
 
         $data = [
             'akademik_id'  => $this->akademik_id,
-            'kelas_id'  => $this->kelas_id,
+            'kelas_id'  => is_array($this->kelas_id) ? $this->kelas_id[0] : 1,
             'mapel_id'  => $this->mapel_id,
             'guru_id'  => $this->guru_id,
             'tanggal_ujian'  => $this->tanggal_ujian,
@@ -91,10 +91,8 @@ class DataUjianController extends Component
             'keterangan'  => $this->keterangan
         ];
         $row = DataUjian::find($this->data_ujian_id);
-
-
-
         $row->update($data);
+        $row->kelass()->attach($this->kelas_id);
 
         $this->_reset();
         return $this->emit('showAlert', ['msg' => 'Data Berhasil Diupdate']);

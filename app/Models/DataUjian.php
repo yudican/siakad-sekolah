@@ -27,6 +27,11 @@ class DataUjian extends Model
         return $this->belongsTo(DataKelas::class, 'kelas_id');
     }
 
+    public function kelass()
+    {
+        return $this->belongsToMany(DataKelas::class, 'kelas_ujian', 'ujian_id', 'kelas_id');
+    }
+
     public function mapel()
     {
         return $this->belongsTo(DataMapel::class, 'mapel_id');

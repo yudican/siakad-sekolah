@@ -57,7 +57,7 @@ class DataJadwalPelajaranController extends Component
 
         $data = [
             'akademik_id'  => $this->akademik_id,
-            'kelas_id'  => $this->kelas_id,
+            'kelas_id'  => is_array($this->kelas_id) ? $this->kelas_id[0] : 1,
             'mapel_id'  => $this->mapel_id,
             'guru_id'  => $this->guru_id,
             'jurusan_id'  => $this->jurusan_id,
@@ -66,7 +66,8 @@ class DataJadwalPelajaranController extends Component
             'jam_selesai'  => $this->jam_selesai
         ];
 
-        DataJadwalPelajaran::create($data);
+        $jadwal = DataJadwalPelajaran::create($data);
+        $jadwal->kelass()->attach($this->kelas_id);
 
         $this->_reset();
         return $this->emit('showAlert', ['msg' => 'Data Berhasil Disimpan']);
@@ -78,7 +79,7 @@ class DataJadwalPelajaranController extends Component
 
         $data = [
             'akademik_id'  => $this->akademik_id,
-            'kelas_id'  => $this->kelas_id,
+            'kelas_id'  => is_array($this->kelas_id) ? $this->kelas_id[0] : 1,
             'mapel_id'  => $this->mapel_id,
             'guru_id'  => $this->guru_id,
             'jurusan_id'  => $this->jurusan_id,
@@ -89,8 +90,8 @@ class DataJadwalPelajaranController extends Component
         $row = DataJadwalPelajaran::find($this->data_jadwal_pelajaran_id);
 
 
-
         $row->update($data);
+        $row->kelass()->sync($this->kelas_id);
 
         $this->_reset();
         return $this->emit('showAlert', ['msg' => 'Data Berhasil Diupdate']);
@@ -126,7 +127,7 @@ class DataJadwalPelajaranController extends Component
         $row = DataJadwalPelajaran::find($data_jadwal_pelajaran_id);
         $this->data_jadwal_pelajaran_id = $row->id;
         $this->akademik_id = $row->akademik_id;
-        $this->kelas_id = $row->kelas_id;
+        $this->kelas_id = $row->kelass()->pluck('data_kelas.id')->toArray();
         $this->mapel_id = $row->mapel_id;
         $this->guru_id = $row->guru_id;
         $this->jurusan_id = $row->jurusan_id;
