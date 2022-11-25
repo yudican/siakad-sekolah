@@ -89,39 +89,40 @@ class DataSiswaController extends Component
                 'nis'  => $this->nis,
                 'nama_siswa'  => $this->nama_siswa,
                 'jenis_kelamin'  => $this->jenis_kelamin,
-                'tempat_lahir'  => $this->tempat_lahir,
-                'tanggal_lahir'  => $this->tanggal_lahir,
-                'agama'  => $this->agama,
-                'alamat'  => $this->alamat,
-                'no_hp'  => $this->no_hp,
-                'nama_ayah'  => $this->nama_ayah,
-                'nama_ibu'  => $this->nama_ibu,
-                'pekerjaan_ayah'  => $this->pekerjaan_ayah,
-                'pekerjaan_ibu'  => $this->pekerjaan_ibu,
-                'no_hp_ortu'  => $this->no_hp_ortu,
-                'alamat_ortu'  => $this->alamat_ortu,
-                'nama_wali'  => $this->nama_wali,
-                'pekerjaan_wali'  => $this->pekerjaan_wali,
-                'no_hp_wali'  => $this->no_hp_wali,
-                'alamat_wali'  => $this->alamat_wali,
-                'asal_sekolah'  => $this->asal_sekolah,
-                'tahun_lulus'  => $this->tahun_lulus,
-                'alamat_asal_sekolah'  => $this->alamat_asal_sekolah,
-                'no_ijazah'  => $this->no_ijazah,
-                'no_skhun'  => $this->no_skhun,
-                'no_un'  => $this->no_un,
-                'no_seri_ijazah'  => $this->no_seri_ijazah,
-                'no_seri_skhun'  => $this->no_seri_skhun
+                'tempat_lahir'  => '-',
+                'agama'  => '-',
+                'alamat'  => '-',
+                'no_hp'  => '-',
+                'nama_ayah'  => '-',
+                'nama_ibu'  => '-',
+                'pekerjaan_ayah'  => '-',
+                'pekerjaan_ibu'  => '-',
+                'no_hp_ortu'  => '-',
+                'alamat_ortu'  => '-',
+                'nama_wali'  => '-',
+                'pekerjaan_wali'  => '-',
+                'no_hp_wali'  => '-',
+                'alamat_wali'  => '-',
+                'asal_sekolah'  => '-',
+                'tahun_lulus'  => '-',
+                'alamat_asal_sekolah'  => '-',
+                'no_ijazah'  => '-',
+                'no_skhun'  => '-',
+                'no_un'  => '-',
+                'no_seri_ijazah'  => '-',
+                'no_seri_skhun'  => '-'
             ];
 
             DataSiswa::create($data);
             DB::commit();
+            $this->_reset();
+            return $this->emit('showAlert', ['msg' => 'Data Berhasil Disimpan']);
         } catch (\Throwable $th) {
-            //throw $th;
+            DB::rollBack();
+            $this->_reset();
+            dd($th->getMessage());
+            return $this->emit('showAlertError', ['msg' => 'Data Gagal Disimpan']);
         }
-
-        $this->_reset();
-        return $this->emit('showAlert', ['msg' => 'Data Berhasil Disimpan']);
     }
 
     public function update()
@@ -145,29 +146,28 @@ class DataSiswaController extends Component
                 'nis'  => $this->nis,
                 'nama_siswa'  => $this->nama_siswa,
                 'jenis_kelamin'  => $this->jenis_kelamin,
-                'tempat_lahir'  => $this->tempat_lahir,
-                'tanggal_lahir'  => $this->tanggal_lahir,
-                'agama'  => $this->agama,
-                'alamat'  => $this->alamat,
-                'no_hp'  => $this->no_hp,
-                'nama_ayah'  => $this->nama_ayah,
-                'nama_ibu'  => $this->nama_ibu,
-                'pekerjaan_ayah'  => $this->pekerjaan_ayah,
-                'pekerjaan_ibu'  => $this->pekerjaan_ibu,
-                'no_hp_ortu'  => $this->no_hp_ortu,
-                'alamat_ortu'  => $this->alamat_ortu,
-                'nama_wali'  => $this->nama_wali,
-                'pekerjaan_wali'  => $this->pekerjaan_wali,
-                'no_hp_wali'  => $this->no_hp_wali,
-                'alamat_wali'  => $this->alamat_wali,
-                'asal_sekolah'  => $this->asal_sekolah,
-                'tahun_lulus'  => $this->tahun_lulus,
-                'alamat_asal_sekolah'  => $this->alamat_asal_sekolah,
-                'no_ijazah'  => $this->no_ijazah,
-                'no_skhun'  => $this->no_skhun,
-                'no_un'  => $this->no_un,
-                'no_seri_ijazah'  => $this->no_seri_ijazah,
-                'no_seri_skhun'  => $this->no_seri_skhun
+                'tempat_lahir'  => '-',
+                'agama'  => '-',
+                'alamat'  => '-',
+                'no_hp'  => '-',
+                'nama_ayah'  => '-',
+                'nama_ibu'  => '-',
+                'pekerjaan_ayah'  => '-',
+                'pekerjaan_ibu'  => '-',
+                'no_hp_ortu'  => '-',
+                'alamat_ortu'  => '-',
+                'nama_wali'  => '-',
+                'pekerjaan_wali'  => '-',
+                'no_hp_wali'  => '-',
+                'alamat_wali'  => '-',
+                'asal_sekolah'  => '-',
+                'tahun_lulus'  => '-',
+                'alamat_asal_sekolah'  => '-',
+                'no_ijazah'  => '-',
+                'no_skhun'  => '-',
+                'no_un'  => '-',
+                'no_seri_ijazah'  => '-',
+                'no_seri_skhun'  => '-'
             ];
             $row = DataSiswa::find($this->data_siswa_id);
 
@@ -209,10 +209,6 @@ class DataSiswaController extends Component
             'nis'  => 'required',
             'nama_siswa'  => 'required',
             'jenis_kelamin'  => 'required',
-            'tempat_lahir'  => 'required',
-            'tanggal_lahir'  => 'required',
-            'agama'  => 'required',
-            'alamat'  => 'required'
         ];
 
         return $this->validate($rule);

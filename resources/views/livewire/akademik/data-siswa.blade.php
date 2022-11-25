@@ -33,6 +33,7 @@
                         <option value="Laki-Laki">Laki-laki</option>
                         <option value="Perempuan">Perempuan</option>
                     </x-select>
+                    {{--
                     <x-text-field type="text" name="tempat_lahir" label="Tempat Lahir" />
                     <x-text-field type="date" name="tanggal_lahir" label="Tanggal Lahir" />
                     <x-select name="agama" label="Agama">
@@ -63,7 +64,7 @@
                     <x-text-field type="text" name="no_skhun" label="No Skhun" />
                     <x-text-field type="text" name="no_un" label="No Un" />
                     <x-text-field type="text" name="no_seri_ijazah" label="No Seri Ijazah" />
-                    <x-text-field type="text" name="no_seri_skhun" label="No Seri Skhun" />
+                    <x-text-field type="text" name="no_seri_skhun" label="No Seri Skhun" /> --}}
 
                     <div class="form-group">
                         <button class="btn btn-primary pull-right" wire:click="store">Simpan</button>

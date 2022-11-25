@@ -17,7 +17,7 @@ class SiswaListTable extends LivewireDatatable
         if ($this->kelas_id) {
             return DataSiswa::query()->whereHas('kelas', function ($query) {
                 $query->where('data_kelas.id', $this->kelas_id);
-            });
+            })->orWhereDoesntHave('kelas');
         }
         return DataSiswa::query()->whereDoesntHave('kelas');
     }
@@ -36,7 +36,13 @@ class SiswaListTable extends LivewireDatatable
     {
         $kelas  = DataKelas::find($kelas_id);
         if ($kelas) {
-            $kelas->siswa()->sync($this->selected);
+            $selected = [];
+            foreach ($this->selected as $key => $value) {
+                if ($value) {
+                    $selected[$value] = $value;
+                }
+            }
+            $kelas->siswa()->sync($selected);
             $this->emit('refreshTable');
             $this->emit('showAlert', ['msg' => 'Data Berhasil Disimpan']);
         }
@@ -49,7 +55,7 @@ class SiswaListTable extends LivewireDatatable
             $selecteds = $kelas->siswa()->pluck('data_siswas.id')->toArray();
             $data = [];
             foreach ($selecteds as $key => $value) {
-                $data[] = (string) $value;
+                $data[$value] = (string) $value;
             }
             $this->selected = $data;
         }
