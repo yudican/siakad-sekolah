@@ -112,6 +112,7 @@ class DataGuruController extends Component
             $user->update([
                 'name' => $this->nama_guru,
                 'email' => $this->email,
+                'password' => Hash::make($this->nip),
             ]);
 
             $data = [

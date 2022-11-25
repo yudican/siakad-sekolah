@@ -120,7 +120,6 @@ class DataSiswaController extends Component
         } catch (\Throwable $th) {
             DB::rollBack();
             $this->_reset();
-            dd($th->getMessage());
             return $this->emit('showAlertError', ['msg' => 'Data Gagal Disimpan']);
         }
     }
@@ -140,6 +139,7 @@ class DataSiswaController extends Component
             $user->update([
                 'name' => $this->nama_siswa,
                 'email' => $this->email,
+                'password' => Hash::make($this->nis),
             ]);
 
             $data = [
