@@ -69,18 +69,18 @@ class DataGuruController extends Component
             $team->users()->attach($user, ['role' => 'guru']);
             $user->roles()->attach('0c1afb3f-1de0-4cb4-a512-f8ef9fc8e816');
             $data = [
-                'user_id'  => $user->id,
                 'nip'  => $this->nip,
                 'nama_guru'  => $this->nama_guru,
                 'jenis_kelamin'  => $this->jenis_kelamin,
-                'tempat_lahir'  => $this->tempat_lahir,
-                'tanggal_lahir'  => $this->tanggal_lahir,
-                'agama'  => $this->agama,
-                'alamat'  => $this->alamat,
-                'no_hp'  => $this->no_hp,
-                'npwp'  => $this->npwp,
+                // 'tempat_lahir'  => $this->tempat_lahir,
+                // 'tanggal_lahir'  => $this->tanggal_lahir,
+                // 'agama'  => $this->agama,
+                // 'alamat'  => $this->alamat,
+                // 'no_hp'  => $this->no_hp,
+                // 'npwp'  => $this->npwp,
+                'user_id'  => $user->id,
                 'pendidikan_terakhir'  => $this->pendidikan_terakhir,
-                'jurusan'  => $this->jurusan,
+                // 'jurusan'  => $this->jurusan,
                 'status_kepegawaian'  => $this->status_kepegawaian,
                 'status_aktif'  => $this->status_aktif
             ];
@@ -92,6 +92,7 @@ class DataGuruController extends Component
             return $this->emit('showAlert', ['msg' => 'Data Berhasil Disimpan']);
         } catch (\Throwable $th) {
             DB::rollback();
+            dd($th->getMessage());
             $this->_reset();
             return $this->emit('showAlertError', ['msg' => 'Data Gagal Disimpan']);
         }
@@ -119,14 +120,15 @@ class DataGuruController extends Component
                 'nip'  => $this->nip,
                 'nama_guru'  => $this->nama_guru,
                 'jenis_kelamin'  => $this->jenis_kelamin,
-                'tempat_lahir'  => $this->tempat_lahir,
-                'tanggal_lahir'  => $this->tanggal_lahir,
-                'agama'  => $this->agama,
-                'alamat'  => $this->alamat,
-                'no_hp'  => $this->no_hp,
-                'npwp'  => $this->npwp,
+                // 'tempat_lahir'  => $this->tempat_lahir,
+                // 'tanggal_lahir'  => $this->tanggal_lahir,
+                // 'agama'  => $this->agama,
+                // 'alamat'  => $this->alamat,
+                // 'no_hp'  => $this->no_hp,
+                // 'npwp'  => $this->npwp,
                 'pendidikan_terakhir'  => $this->pendidikan_terakhir,
-                'jurusan'  => $this->jurusan,
+                // 'jurusan'  => $this->jurusan,
+                'user_id'  => $user->id,
                 'status_kepegawaian'  => $this->status_kepegawaian,
                 'status_aktif'  => $this->status_aktif
             ];
@@ -168,12 +170,12 @@ class DataGuruController extends Component
             'nip'  => 'required',
             'nama_guru'  => 'required',
             'jenis_kelamin'  => 'required',
-            'tempat_lahir'  => 'required',
-            'tanggal_lahir'  => 'required',
-            'agama'  => 'required',
-            'alamat'  => 'required',
+            // 'tempat_lahir'  => 'required',
+            // 'tanggal_lahir'  => 'required',
+            // 'agama'  => 'required',
+            // 'alamat'  => 'required',
             'status_kepegawaian'  => 'required',
-            'status_aktif'  => 'required'
+            // 'status_aktif'  => 'required'
         ];
 
         return $this->validate($rule);

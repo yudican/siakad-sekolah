@@ -33,6 +33,7 @@
                         <option value="Laki-Laki">Laki-laki</option>
                         <option value="Perempuan">Perempuan</option>
                     </x-select>
+                    {{--
                     <x-text-field type="text" name="tempat_lahir" label="Tempat Lahir" />
                     <x-text-field type="date" name="tanggal_lahir" label="Tanggal Lahir" />
                     <x-select name="agama" label="Agama">
@@ -46,19 +47,21 @@
                     </x-select>
                     <x-text-field type="text" name="alamat" label="Alamat" />
                     <x-text-field type="text" name="no_hp" label="No Hp" />
-                    <x-text-field type="text" name="npwp" label="Npwp" />
-                    <x-text-field type="text" name="pendidikan_terakhir" label="Pendidikan Terakhir" />
-                    <x-text-field type="text" name="jurusan" label="Jurusan" />
+                    <x-text-field type="text" name="npwp" label="Npwp" /> --}}
+                    {{--
+                    <x-text-field type="text" name="pendidikan_terakhir" label="Pendidikan Terakhir" /> --}}
+                    {{--
+                    <x-text-field type="text" name="jurusan" label="Jurusan" /> --}}
                     <x-select name="status_kepegawaian" label="Status Kepegawaian">
                         <option value="">Select Status Kepegawaian</option>
                         <option value="PNS">PNS</option>
                         <option value="Honorer">Honorer</option>
                     </x-select>
-                    <x-select name="status_aktif" label="Status Aktif">
+                    {{-- <x-select name="status_aktif" label="Status Aktif">
                         <option value="">Select Status Aktif</option>
                         <option value="1">Aktif</option>
                         <option value="0">Tidak Aktif</option>
-                    </x-select>
+                    </x-select> --}}
 
                     <div class="form-group">
                         <button class="btn btn-primary pull-right" wire:click="{{$update_mode ? 'update' : 'store'}}">Simpan</button>
