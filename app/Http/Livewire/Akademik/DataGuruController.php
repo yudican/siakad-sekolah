@@ -152,6 +152,10 @@ class DataGuruController extends Component
 
         try {
             DB::beginTransaction();
+            $guru->kelas()->delete();
+            $guru->materi()->delete();
+            $guru->jadwal()->delete();
+            $guru->ujian()->delete();
             $user->delete();
             DB::commit();
 

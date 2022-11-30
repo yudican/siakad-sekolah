@@ -43,4 +43,24 @@ class DataGuru extends Model
     {
         return $this->hasMany(DataMateri::class, 'guru_id');
     }
+
+    /**
+     * Get all of the jadwal for the DataGuru
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function jadwal(): HasMany
+    {
+        return $this->hasMany(DataJadwalPelajaran::class, 'guru_id');
+    }
+
+    /**
+     * Get all of the ujian for the DataGuru
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ujian(): HasMany
+    {
+        return $this->hasMany(DataUjian::class, 'guru_id');
+    }
 }

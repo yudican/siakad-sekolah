@@ -36,4 +36,34 @@ class DataSiswa extends Model
     {
         return $this->belongsToMany(DataUjian::class, 'siswa_ujian', 'siswa_id', 'data_ujian_id');
     }
+
+    /**
+     * Get all of the pengumpulanTugas for the DataSiswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pengumpulanTugas(): HasMany
+    {
+        return $this->hasMany(PengumpulanTugas::class, 'siswa_id');
+    }
+
+    /**
+     * Get all of the jawabanUjian for the DataSiswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function jawabanUjian(): HasMany
+    {
+        return $this->hasMany(DataJawabanUjian::class, 'siswa_id');
+    }
+
+    /**
+     * Get all of the jawabanUjianEssay for the DataSiswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function jawabanUjianEssay(): HasMany
+    {
+        return $this->hasMany(DataJawabaEssay::class, 'data_siswa_id');
+    }
 }

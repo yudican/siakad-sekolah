@@ -190,6 +190,11 @@ class DataSiswaController extends Component
 
         try {
             DB::beginTransaction();
+            $user->siswa()->kelas()->detach();
+            $user->pengumpulanTugas()->delete();
+            $user->jawabanUjian()->delete();
+            $user->jawabanUjianEssay()->delete();
+            $user->roles()->detach();
             $user->delete();
             DB::commit();
 
