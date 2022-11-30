@@ -19,7 +19,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <p class="mb-4">{{$soal->nama_soal}}</p>
+                    <p class="mb-4">{!! $soal->nama_soal !!}</p>
 
                     {{-- list checkbox --}}
                     @if ($type_soal == 'pg')

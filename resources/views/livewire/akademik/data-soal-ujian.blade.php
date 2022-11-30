@@ -28,7 +28,17 @@
                     {{-- <x-select name="data_ujian_id" label="Data Ujian">
                         <option value="">Select Data Ujian</option>
                     </x-select> --}}
-                    <x-text-field type="text" name="nama_soal" label="Nama Soal" />
+                    {{--
+                    <x-text-field type="text" name="nama_soal" label="Nama Soal" /> --}}
+                    <div>
+                        <div wire:ignore class="form-group @error('nama_soal')has-error has-feedback @enderror">
+                            <label for="nama_soal" class="text-capitalize">Nama Soal</label>
+                            <textarea wire:model="nama_soal" id="nama_soal" class="form-control"></textarea>
+                        </div>
+                        @error('nama_soal')
+                        <small class="text-danger ml-2">{{ $message }}</small>
+                        @enderror
+                    </div>
                     <x-input-image foto="{{$gambar_soal}}" path="{{optional($gambar_soal_path)->temporaryUrl()}}" name="gambar_soal_path" label="Gambar Soal" />
 
                     @if ($type_soal == 'essay')
@@ -108,13 +118,22 @@
     </div>
     @push('scripts')
 
-
+    <script src="{{asset('assets/js/plugin/summernote/summernote-bs4.min.js')}}"></script>
 
     <script>
-        document.addEventListener('livewire:load', function(e) {
+        document.addEventListener('livewire:load', function () {
             window.livewire.on('loadForm', (data) => {
-                
-                
+                $('#nama_soal').summernote({
+                    placeholder: 'nama_soal',
+                    fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New'],
+                    tabsize: 2,
+                    height: 300,
+                    callbacks: {
+                                onChange: function(contents, $editable) {
+                                    @this.set('nama_soal', contents);
+                                }
+                            }
+                });
             });
 
             window.livewire.on('closeModal', (data) => {
