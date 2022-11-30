@@ -80,7 +80,7 @@ class DataUjianTable extends LivewireDatatable
                     }
 
                     $start = strtotime($tanggal_ujian . ' ' . $waktu_ujian);
-                    $now = strtotime(date('Y-m-d H:i:s'));
+                    $now = strtotime(date('Y-m-d H:i:s', strtotime('+2 hours')));
 
                     if ($start >= $now) {
                         return 'Belum Mulai';
