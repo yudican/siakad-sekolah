@@ -128,10 +128,10 @@ class DataSiswaController extends Component
     {
         $this->_validate();
 
-        $user = User::where('id', '!=', $this->user_id)->where('email', $this->email)->first();
-        if ($user) {
-            return $this->emit('showAlertError', ['msg' => 'Email Sudah Terdaftar']);
-        }
+        // $user = User::where('id', '!=', $this->user_id)->where('email', $this->email)->first();
+        // if ($user) {
+        //     return $this->emit('showAlertError', ['msg' => 'Email Sudah Terdaftar']);
+        // }
 
         try {
             DB::beginTransaction();
