@@ -67,7 +67,7 @@
                     <x-text-field type="text" name="no_seri_skhun" label="No Seri Skhun" /> --}}
 
                     <div class="form-group">
-                        <button class="btn btn-primary pull-right" wire:click="store">Simpan</button>
+                        <button class="btn btn-primary pull-right" wire:click="{{$update_mode ? 'update' : 'store'}}">Simpan</button>
                     </div>
                 </div>
             </div>
