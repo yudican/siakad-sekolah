@@ -33,7 +33,8 @@
 
                     @if ($type_soal == 'essay')
                     <div class="form-group">
-                        <button class="btn btn-primary pull-right" wire:click="{{$update_mode ? 'update' : 'store'}}">Simpan</button>
+                        <button class="btn btn-primary pull-right" wire:click="{{$update_mode ? 'update' : 'store'}}" wire:loading.remove wire:target="update,store">Simpan</button>
+                        <button class="btn btn-primary pull-right" wire:loading wire:target="update,store" disabled>Loading...</button>
                     </div>
                     @endif
                 </div>
@@ -74,7 +75,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
-                            <button class="btn btn-primary pull-right" wire:click="{{$update_mode ? 'update' : 'store'}}">Simpan</button>
+                            <button class="btn btn-primary pull-right" wire:click="{{$update_mode ? 'update' : 'store'}}" wire:loading.remove wire:target="update,store">Simpan</button>
+                            <button class="btn btn-primary pull-right" wire:loading wire:target="update,store" disabled>Loading...</button>
                         </div>
                     </div>
                 </div>
