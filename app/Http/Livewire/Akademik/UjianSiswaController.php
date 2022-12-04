@@ -46,11 +46,14 @@ class UjianSiswaController extends Component
                 $this->nilai[$value->data_soal_ujian_id] = $value->nilai;
             }
             $timer = WaktuUjianSiswa::where([
-                'data_ujian_id' => $this->soal->data_ujian_id,
+                'data_ujian_id' => $this->ujian_id,
                 'siswa_id' => auth()->user()->siswa->id,
             ])->first();
 
             $this->countdown = $timer ? $timer->sisa_waktu : $this->soal->dataUjian->waktu_pengerjaan;
+            if ($this->countdown < 1) {
+                return $this->emit('showAlertError', ['msg' => 'Ujian Telah Selesai', 'redirect' => true, 'path' => route('data-ujian')]);
+            }
         }
     }
 
@@ -83,19 +86,19 @@ class UjianSiswaController extends Component
     public function submitJawaban()
     {
         DB::table('siswa_ujian')->insert([
-            'data_ujian_id' => $this->soal->data_ujian_id,
+            'data_ujian_id' => $this->ujian_id,
             'siswa_id' => auth()->user()->siswa->id,
         ]);
 
         WaktuUjianSiswa::updateOrCreate([
-            'data_ujian_id' => $this->soal->data_ujian_id,
+            'data_ujian_id' => $this->ujian_id,
             'siswa_id' => auth()->user()->siswa->id,
         ], [
             'sisa_waktu' => 0
         ]);
 
         if ($this->type_soal == 'pg') {
-            $soals = DataSoalUjian::where('data_ujian_id', $this->soal->data_ujian_id)->get();
+            $soals = DataSoalUjian::where('data_ujian_id', $this->ujian_id)->get();
             foreach ($soals as $key => $value) {
                 $jawaban = DataJawabanUjian::where([
                     'data_ujian_id' => $value->data_ujian_id,
@@ -153,7 +156,7 @@ class UjianSiswaController extends Component
         $jawaban = DataPilihanJawaban::find($jawaban_id);
         DataJawabanUjian::updateOrCreate(
             [
-                'data_ujian_id' => $this->soal->data_ujian_id,
+                'data_ujian_id' => $this->ujian_id,
                 'data_soal_ujian_id' => $this->soal_id,
                 'siswa_id' => auth()->user()->siswa->id,
             ],
@@ -175,7 +178,7 @@ class UjianSiswaController extends Component
     public function setTimeReamining($timer)
     {
         WaktuUjianSiswa::updateOrCreate([
-            'data_ujian_id' => $this->soal->data_ujian_id,
+            'data_ujian_id' => $this->ujian_id,
             'siswa_id' => auth()->user()->siswa->id,
         ], [
             'sisa_waktu' => $timer
@@ -187,18 +190,18 @@ class UjianSiswaController extends Component
     public function finishUjian()
     {
         DB::table('siswa_ujian')->insert([
-            'data_ujian_id' => $this->soal->data_ujian_id,
+            'data_ujian_id' => $this->ujian_id,
             'siswa_id' => auth()->user()->siswa->id,
         ]);
 
         WaktuUjianSiswa::updateOrCreate([
-            'data_ujian_id' => $this->soal->data_ujian_id,
+            'data_ujian_id' => $this->ujian_id,
             'siswa_id' => auth()->user()->siswa->id,
         ], [
             'sisa_waktu' => 0
         ]);
 
-        $soals = DataSoalUjian::where('data_ujian_id', $this->soal->data_ujian_id)->get();
+        $soals = DataSoalUjian::where('data_ujian_id', $this->ujian_id)->get();
         foreach ($soals as $key => $value) {
             $jawaban = DataJawabanUjian::where([
                 'data_ujian_id' => $value->data_ujian_id,

@@ -82,9 +82,9 @@ class DataUjianTable extends LivewireDatatable
                     $start = strtotime($tanggal_ujian . ' ' . $waktu_ujian);
                     $now = strtotime(date('Y-m-d H:i:s', strtotime('+2 hours')));
 
-                    // if ($start >= $now) {
-                    //     return 'Belum Mulai';
-                    // }
+                    if ($start >= $now) {
+                        return 'Belum Mulai';
+                    }
                     $soal = DataSoalUjian::where('data_ujian_id', $id)->count();
                     if ($soal > 0) {
                         return '<a href="' . route('ujian-siswa', ['ujian_id' => $id]) . '" class="btn btn-primary btn-sm">Mulai Ujian</a>';

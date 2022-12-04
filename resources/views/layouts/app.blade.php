@@ -205,6 +205,12 @@
                             showCancelButton: false,
                             showConfirmButton: false
                         })
+
+                        if (data?.redirect) {
+                            setTimeout(() => {
+                                window.location.href=data?.path
+                            }, 5000);
+                        }
                     });
                     
                     window.livewire.on('showAlertError', (data) => {
@@ -216,6 +222,12 @@
                             showCancelButton: false,
                             showConfirmButton: false
                         })
+
+                        if (data?.redirect) {
+                            setTimeout(() => {
+                                window.location.href=data?.path
+                            }, 5000);
+                        }
                     });
                 })
     </script>
