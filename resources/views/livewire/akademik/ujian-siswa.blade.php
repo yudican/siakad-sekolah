@@ -18,7 +18,7 @@
         </div>
         <div class="col-md-8">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" wire:target="changeSoal" wire:loading.remove>
                     <p class="mb-4">{!! $soal->nama_soal !!}</p>
 
                     {{-- list checkbox --}}
@@ -43,28 +43,41 @@
 
 
                 </div>
+                <div class="card-body d-flex justify-content-center align-items-center">
+                    <img src=" {{asset('assets/img/loader.gif')}}" alt="loader" wire:loading wire:target="changeSoal">
+                </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <div class="ctimercountdown">
-                        {{$countDowntimer}}
-                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Sisa Waktu Ujian
+                            <span class="badge badge-primary badge-pill ctimercountdown">{{$countDowntimer}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="header-title">Nomor Soal</h1>
+                </div>
+                <div class="card-body">
                     <div class="row">
                         @foreach ($soals as $key => $item)
                         @if (isAnswered($item->id, $ujian_id,$type_soal))
                         <div class="col-2">
-                            <button class="btn btn-warning btn-sm" wire:click="changeSoal({{$item->id}})">{{$key}}</button>
+                            <button class="btn btn-warning btn-sm mb-2" style="width: 50px;" wire:click="changeSoal({{$item->id}})">{{$key+1}}</button>
                         </div>
                         @else
                         @if ($item->id == $soal_id)
                         <div class="col-2">
-                            <button class="btn btn-success btn-sm" wire:click="changeSoal({{$item->id}})">{{$key}}</button>
+                            <button class="btn btn-success btn-sm mb-2" style="width: 50px;" wire:click="changeSoal({{$item->id}})">{{$key+1}}</button>
                         </div>
                         @else
                         <div class="col-2">
-                            <button class="btn btn-danger btn-sm" wire:click="changeSoal({{$item->id}})">{{$key}}</button>
+                            <button class="btn btn-danger btn-sm mb-2" style="width: 50px;" wire:click="changeSoal({{$item->id}})">{{$key+1}}</button>
                         </div>
                         @endif
 
@@ -72,6 +85,35 @@
                         @endforeach
                     </div>
 
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="header-title">Panduan Pengerjaan</h1>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>1. Untuk Berganti Soal Silahkan pilih nomor diatas</li>
+                        <li>2. Tombol Warna Merah Belum Mengisi Jawaban</li>
+                        <li>3. Tombol Warna Kuning Sudah Mengisi Jawaban dan Bisa Diubah</li>
+                        <li>4. Tombol Warna Hijau Tanda Soal Yang Sedang Aktif</li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="header-title">Peringatan</h1>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>1. Dilarang Membuka Tab Baru Pada Browser.</li>
+                        <li>2. Jika Tetap Membuka Tab Baru Maka Ujian Akan Dianggap Selesai</li>
+                        <li>3. Ujian Yang Telah Selesai Tidak Dapat Diulang Kembali</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -108,7 +150,6 @@
                 });
 
                 window.addEventListener('blur', function (event) {
-                    @this.call('finishUjian');
                 });
             })
     </script>

@@ -25,7 +25,7 @@ class DataSiswaTable extends LivewireDatatable
             Column::name('id')->label('No.'),
             Column::name('nis')->label('Nis')->searchable(),
             Column::name('nama_siswa')->label('Nama Siswa')->searchable(),
-            Column::name('user.email')->label('Nama Siswa')->searchable(),
+            Column::name('user.email')->label('Email Siswa')->searchable(),
             Column::name('jenis_kelamin')->label('Jenis Kelamin')->searchable(),
 
             Column::callback(['id'], function ($id) {
