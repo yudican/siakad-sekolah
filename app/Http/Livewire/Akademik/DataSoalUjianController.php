@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Akademik;
 
+use App\Models\DataPilihanJawaban;
 use App\Models\DataSoalUjian;
 use App\Models\DataUjian;
 use Illuminate\Support\Facades\DB;
@@ -106,9 +107,8 @@ class DataSoalUjianController extends Component
         $row->update($data);
 
         if ($this->type_soal == 'pg') {
-            $row->dataPilihanJawaban()->delete();
             foreach ($this->pilihan_jawabans as $key => $pilihan_jawaban) {
-                $row->dataPilihanJawaban()->create([
+                DataPilihanJawaban::updateOrCreate(['id' => $pilihan_jawaban], [
                     'pilihan_jawaban' => $this->nama_jawaban[$key],
                     'kunci_jawaban' => in_array($key, $this->kunci_jawaban) ? true : false,
                 ]);
@@ -145,7 +145,7 @@ class DataSoalUjianController extends Component
         $this->nama_soal = $row->nama_soal;
         $this->gambar_soal = $row->gambar_soal;
         $this->gambar_soal_path = $row->gambar_soal;
-        $this->pilihan_jawabans = $row->dataPilihanJawaban()->pluck('pilihan_jawaban')->toArray();
+        $this->pilihan_jawabans = $row->dataPilihanJawaban()->pluck('data_pilihan_jawabans.id')->toArray();
         $this->nama_jawaban = $row->dataPilihanJawaban()->pluck('pilihan_jawaban')->toArray();
         foreach ($row->dataPilihanJawaban as $key => $value) {
             if ($value->kunci_jawaban == true) {
