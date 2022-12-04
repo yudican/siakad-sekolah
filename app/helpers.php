@@ -93,3 +93,15 @@ if (!function_exists('getJawaban')) {
     return '';
   }
 }
+
+// get day name
+if (!function_exists('getImage')) {
+  function getImage($image)
+  {
+    if ($image) {
+      return asset('storage/' . $image);
+    }
+
+    return asset('assets/img/card.svg');
+  }
+}

@@ -39,7 +39,7 @@
                         <small class="text-danger ml-2">{{ $message }}</small>
                         @enderror
                     </div>
-                    <x-input-image foto="{{$gambar_soal}}" path="{{optional($gambar_soal_path)->temporaryUrl()}}" name="gambar_soal_path" label="Gambar Soal" />
+                    <x-input-photo foto="{{$gambar_soal}}" path="{{optional($gambar_soal_path)->temporaryUrl()}}" name="gambar_soal_path" label="Gambar Soal" />
 
                     @if ($type_soal == 'essay')
                     <div class="form-group">
