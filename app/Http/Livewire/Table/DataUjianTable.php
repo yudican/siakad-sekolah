@@ -97,9 +97,9 @@ class DataUjianTable extends LivewireDatatable
                     'actions' => [
                         [
                             'type' => 'link',
-                            'params' => ['ujian_id' => $id, 'kelas_id' => $kelas_id],
-                            'label' => 'Lihat Peserta Ujian',
-                            'route' => 'list-ujian-siswa'
+                            'params' => ['ujian_id' => $id],
+                            'label' => 'Lihat Kelas Ujian',
+                            'route' => 'list-kelas-ujian'
                         ],
                         [
                             'type' => 'link',
