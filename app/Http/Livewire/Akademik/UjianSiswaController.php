@@ -97,8 +97,8 @@ class UjianSiswaController extends Component
             'sisa_waktu' => 0
         ]);
 
+        $soals = DataSoalUjian::where('data_ujian_id', $this->ujian_id)->get();
         if ($this->type_soal == 'pg') {
-            $soals = DataSoalUjian::where('data_ujian_id', $this->ujian_id)->get();
             foreach ($soals as $key => $value) {
                 $jawaban = DataJawabanUjian::where([
                     'data_ujian_id' => $value->data_ujian_id,
@@ -113,6 +113,24 @@ class UjianSiswaController extends Component
                         'siswa_id' => auth()->user()->siswa->id,
                         'is_answered' => 0,
                         'status' => 0
+                    ]);
+                }
+            }
+        } else {
+            foreach ($soals as $key => $value) {
+                $jawaban = DataJawabaEssay::where([
+                    'data_ujian_id' => $value->data_ujian_id,
+                    'data_soal_ujian_id' => $value->id,
+                    'data_siswa_id' => auth()->user()->siswa->id,
+                ])->first();
+
+                if (!$jawaban) {
+                    DataJawabaEssay::create([
+                        'data_ujian_id' => $value->data_ujian_id,
+                        'data_soal_ujian_id' => $value->id,
+                        'data_siswa_id' => auth()->user()->siswa->id,
+                        'jawaban' => '',
+                        'nilai' => 0
                     ]);
                 }
             }
@@ -202,15 +220,15 @@ class UjianSiswaController extends Component
         ]);
 
         $soals = DataSoalUjian::where('data_ujian_id', $this->ujian_id)->get();
-        foreach ($soals as $key => $value) {
-            $jawaban = DataJawabanUjian::where([
-                'data_ujian_id' => $value->data_ujian_id,
-                'data_soal_ujian_id' => $value->id,
-                'siswa_id' => auth()->user()->siswa->id,
-            ])->first();
+        if ($this->type_soal == 'pg') {
+            foreach ($soals as $key => $value) {
+                $jawaban = DataJawabanUjian::where([
+                    'data_ujian_id' => $value->data_ujian_id,
+                    'data_soal_ujian_id' => $value->id,
+                    'siswa_id' => auth()->user()->siswa->id,
+                ])->first();
 
-            if (!$jawaban) {
-                if ($this->type_soal == 'pg') {
+                if (!$jawaban) {
                     DataJawabanUjian::create([
                         'data_ujian_id' => $value->data_ujian_id,
                         'data_soal_ujian_id' => $value->id,
@@ -218,7 +236,17 @@ class UjianSiswaController extends Component
                         'is_answered' => 0,
                         'status' => 0
                     ]);
-                } else {
+                }
+            }
+        } else {
+            foreach ($soals as $key => $value) {
+                $jawaban = DataJawabaEssay::where([
+                    'data_ujian_id' => $value->data_ujian_id,
+                    'data_soal_ujian_id' => $value->id,
+                    'data_siswa_id' => auth()->user()->siswa->id,
+                ])->first();
+
+                if (!$jawaban) {
                     DataJawabaEssay::create([
                         'data_ujian_id' => $value->data_ujian_id,
                         'data_soal_ujian_id' => $value->id,

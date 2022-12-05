@@ -14,6 +14,9 @@ class JawabanUjianSiswaController extends Component
     public $siswa_id;
     public $jenis_soal;
 
+    public $benar = 0;
+    public $salah = 0;
+
     public $jawaban_essay;
     public $jawaban_pg;
 
@@ -23,7 +26,15 @@ class JawabanUjianSiswaController extends Component
         $this->jenis_soal = $ujian->jenis_soal;
         $this->siswa_id = $siswa_id;
         if ($ujian->jenis_soal == 'pg') {
-            $this->jawaban_pg = DataJawabanUjian::query()->where('siswa_id', $this->siswa_id)->where('data_ujian_id', $this->ujian_id)->get();
+            $jawaban_pg = DataJawabanUjian::query()->where('siswa_id', $this->siswa_id)->where('data_ujian_id', $this->ujian_id)->get();
+            $benar = 0;
+            $salah = 0;
+            foreach ($jawaban_pg as $key => $value) {
+                $benar = $value->status == 1 ? $benar + 1 : 0;
+                $salah = $value->status == 0 ? $salah + 1 : 0;
+            }
+
+            $this->jawaban_pg = $jawaban_pg;
         }
 
         $this->jawaban_essay =  DataJawabaEssay::query()->where('data_siswa_id', $this->siswa_id)->where('data_ujian_id', $this->ujian_id)->get();

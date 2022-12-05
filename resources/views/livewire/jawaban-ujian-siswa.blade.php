@@ -11,6 +11,16 @@
                 </div>
             </div>
         </div>
+        @if ($jenis_soal == 'pg')
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <span class="text-success">Benar: {{$benar}}</span>
+                    <span class="text-danger">Salah: {{$benar}}</span>
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
