@@ -34,13 +34,13 @@ class UjianSiswaController extends Component
             $this->soal = DataSoalUjian::find($this->soals[0]->id);
             $this->type_soal = $this->soal->dataUjian->jenis_soal;
             $this->soal_id = $this->soals[0]->id;
-            $jawabans = DataJawabanUjian::where('data_ujian_id', $ujian_id)->get();
+            $jawabans = DataJawabanUjian::where('data_ujian_id', $ujian_id)->where('siswa_id', auth()->user()->siswa->id)->get();
             foreach ($jawabans as $key => $value) {
                 $this->pilihan_jawaban[$value->data_pilihan_jawaban_id] = $value->data_pilihan_jawaban_id;
                 $this->soal_jawaban[$value->data_soal_ujian_id] = $value->data_pilihan_jawaban_id;
             }
 
-            $jawaban_essays = DataJawabaEssay::where('data_ujian_id', $ujian_id)->get();
+            $jawaban_essays = DataJawabaEssay::where('data_ujian_id', $ujian_id)->where('data_siswa_id', auth()->user()->siswa->id)->get();
             foreach ($jawaban_essays as $key => $value) {
                 $this->jawaban[$value->data_soal_ujian_id] = $value->jawaban;
                 $this->nilai[$value->data_soal_ujian_id] = $value->nilai;
