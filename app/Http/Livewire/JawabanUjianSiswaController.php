@@ -17,8 +17,8 @@ class JawabanUjianSiswaController extends Component
     public $benar = 0;
     public $salah = 0;
 
-    public $jawaban_essay;
-    public $jawaban_pg;
+    public $jawaban_essay = [];
+    public $jawaban_pg = [];
 
     public function mount($ujian_id, $siswa_id)
     {
