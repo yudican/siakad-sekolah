@@ -21,7 +21,7 @@ class ListUjianSiswaTable extends LivewireDatatable
   public function builder()
   {
     return DataSiswa::query()->whereHas('kelas', function ($query) {
-      $query->where('kelas_id', $this->params['kelas_id'])->whereHas('ujian', function ($query) {
+      $query->whereIn('kelas_id', [$this->params['kelas_id']])->whereHas('ujian', function ($query) {
         $query->where('data_ujian.id', $this->params['ujian_id']);
       });
     });
