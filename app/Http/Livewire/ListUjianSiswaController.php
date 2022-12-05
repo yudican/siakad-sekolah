@@ -13,10 +13,9 @@ class ListUjianSiswaController extends Component
     public $ujian_id;
     public $kelas_id;
 
-    public function mount($ujian_id)
+    public function mount($kelas_id, $ujian_id)
     {
-        $ujian = DataUjian::find($ujian_id);
-        $this->kelas_id = $ujian->kelas_id;
+        $this->kelas_id = $kelas_id;
         $this->ujian_id = $ujian_id;
     }
 

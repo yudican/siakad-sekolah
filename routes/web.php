@@ -81,9 +81,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified', 'user.authorization']
     Route::get('/data-ujian', DataUjianController::class)->name('data-ujian');
     Route::get('/data-soal-ujian/{data_ujian_id}', DataSoalUjianController::class)->name('data-soal-ujian');
     Route::get('/ujian-siswa/{ujian_id}', UjianSiswaController::class)->name('ujian-siswa');
-    Route::get('/list-ujian-siswa/{ujian_id}', ListUjianSiswaController::class)->name('list-ujian-siswa');
+    Route::get('/list-ujian-siswa/{kelas_id}/{ujian_id}', ListUjianSiswaController::class)->name('list-ujian-siswa');
     Route::get('/list-jawaban-ujian-siswa/{ujian_id}/{siswa_id}', JawabanUjianSiswaController::class)->name('list-jawaban-ujian-siswa');
     Route::get('/data-jurusan', DataJurusanController::class)->name('data-jurusan');
-// [route_path]
+    // [route_path]
 
 });

@@ -60,7 +60,7 @@ class DataUjianTable extends LivewireDatatable
                 return DataSoalUjian::where('data_ujian_id', $id)->count() . ' Soal';
             })->label('Jumlah Soal')->searchable(),
 
-            Column::callback(['id', 'jenis_soal', 'tanggal_ujian', 'waktu_ujian'], function ($id, $jenis_soal, $tanggal_ujian, $waktu_ujian) {
+            Column::callback(['id', 'jenis_soal', 'tanggal_ujian', 'waktu_ujian', 'kelas_id'], function ($id, $jenis_soal, $tanggal_ujian, $waktu_ujian, $kelas_id) {
                 $user = auth()->user();
                 $role = $user->role->role_type;
 
@@ -97,7 +97,7 @@ class DataUjianTable extends LivewireDatatable
                     'actions' => [
                         [
                             'type' => 'link',
-                            'params' => ['ujian_id' => $id],
+                            'params' => ['ujian_id' => $id, 'kelas_id' => $kelas_id],
                             'label' => 'Lihat Peserta Ujian',
                             'route' => 'list-ujian-siswa'
                         ],
