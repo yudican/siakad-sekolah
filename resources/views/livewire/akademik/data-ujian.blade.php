@@ -57,6 +57,7 @@
                         {{-- <option value="UH">Ulangan Harian</option> --}}
                         <option value="UTS">Ujian Tengah Semester</option>
                         <option value="UAS">Ujian Akhir Semester</option>
+                        <option value="Harian">Ulangan Harian</option>
                     </x-select>
                     <x-select name="jenis_soal" label="Jenis Soal">
                         <option value="">Select Jenis Soal</option>
